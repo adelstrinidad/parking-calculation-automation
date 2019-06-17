@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.adelquistrinidad.parkingcalculator</groupId>
-    <artifactId>org.adelquistrinidad.parkingcalculator.test</artifactId>
+    <groupId>com.adelquistrinidad.parkingcalc</groupId>
+    <artifactId>com.adelquistrinidad.parkingcalc.test</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
@@ -21,13 +21,7 @@
             <artifactId>selenium-java</artifactId>
             <version>3.141.59</version>
         </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.14.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+         <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
@@ -40,7 +34,11 @@
             <artifactId>javacsv</artifactId>
             <version>2.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.14.3</version>
+        </dependency>
 
 
     </dependencies>
