@@ -36,14 +36,15 @@ public class ParkingCalculatorPageTest extends BaseTestClass {
     @Test(dataProvider = "getDataFromCSV", dataProviderClass = DataProviderClass.class)
     public void calculateParkingTestCSV(String lot, String startTime, String periodOfTimeEntry, String startDate, String endTime, String periodOfTimeExit,String endDate,  String cost, String timeSpent ) throws InterruptedException {
         System.out.println(lot +" "+ startTime +" "+ periodOfTimeEntry +" "+ startDate +" "+ endTime  +" "+ periodOfTimeExit +" "+ endDate +" "+ cost +" "+ timeSpent);
-        parkingCalculator.chooseLot(lot);
-        parkingCalculator.chooseDateTime(ENTRY_TIME, startTime);
-        parkingCalculator.choosePeriodTimeRB(ENTRY_TIME, periodOfTimeEntry);
-        parkingCalculator.setDate(ENTRY_DATE,startDate);
-        parkingCalculator.chooseDateTime(EXIT_TIME, endTime);
-        parkingCalculator.choosePeriodTimeRB(EXIT_TIME, periodOfTimeExit);
-        parkingCalculator.setDate(EXIT_DATE,endDate);
-        parkingCalculator.submit();
+
+        parkingCalculator.chooseLot(lot)
+                .chooseDateTime(ENTRY_TIME, startTime)
+                .choosePeriodTimeRB(ENTRY_TIME, periodOfTimeEntry)
+                .setDate(ENTRY_DATE,startDate)
+                .chooseDateTime(EXIT_TIME, endTime)
+                .choosePeriodTimeRB(EXIT_TIME, periodOfTimeExit)
+                .setDate(EXIT_DATE,endDate)
+                .submit();
 
 
         assertThat(cost).isEqualTo(parkingCalculator.calculateCost());
@@ -54,14 +55,14 @@ public class ParkingCalculatorPageTest extends BaseTestClass {
 
     @Test(dataProvider = "dpParking")
     public void calculateParkingTest(String lot, String startTime, String periodOfTimeEntry, String startDate, String endTime, String periodOfTimeExit,String endDate,  String cost, String timeSpent ) throws InterruptedException {
-        parkingCalculator.chooseLot(lot);
-        parkingCalculator.chooseDateTime(ENTRY_TIME, startTime);
-        parkingCalculator.choosePeriodTimeRB(ENTRY_TIME, periodOfTimeEntry);
-        parkingCalculator.setDate(ENTRY_DATE,startDate);
-        parkingCalculator.chooseDateTime(EXIT_TIME, endTime);
-        parkingCalculator.choosePeriodTimeRB(EXIT_TIME, periodOfTimeExit);
-        parkingCalculator.setDate(EXIT_DATE,endDate);
-        parkingCalculator.submit();
+        parkingCalculator.chooseLot(lot)
+                            .chooseDateTime(ENTRY_TIME, startTime)
+                            .choosePeriodTimeRB(ENTRY_TIME, periodOfTimeEntry)
+                            .setDate(ENTRY_DATE,startDate)
+                            .chooseDateTime(EXIT_TIME, endTime)
+                            .choosePeriodTimeRB(EXIT_TIME, periodOfTimeExit)
+                            .setDate(EXIT_DATE,endDate)
+                            .submit();
 
         assertThat(cost).isEqualTo(parkingCalculator.calculateCost());
         if(!cost.contains("ERROR")){
