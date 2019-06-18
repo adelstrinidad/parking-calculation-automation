@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
+import static com.parkingcalculatortest.ParkingCalculatorPage.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ParkingCalculatorPageTest extends BaseTestClass {
@@ -18,7 +19,7 @@ public class ParkingCalculatorPageTest extends BaseTestClass {
     private static final String EXIT_DATE = "ExitDate";
 
 
-    ParkingCalculatorPage parkingCalculator = new ParkingCalculatorPage();
+    ParkingCalculatorPage parkingCalculator = getParkingCalculationPage();
 
     @DataProvider
     public Object[][] dpParking(Method m) {

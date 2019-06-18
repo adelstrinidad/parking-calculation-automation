@@ -3,7 +3,6 @@ package com.parkingcalculatortest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  *
@@ -11,7 +10,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class ParkingCalculatorPage {
     WebDriver driver = DriverFactory.getChromeDriver();
-    WebDriverWait wait = DriverFactory.getWebDriverWait();
+
+    private ParkingCalculatorPage(){
+        //hide it
+    }
+
+    public static ParkingCalculatorPage getParkingCalculationPage() {
+        return new ParkingCalculatorPage();
+    }
 
     /**
      *
