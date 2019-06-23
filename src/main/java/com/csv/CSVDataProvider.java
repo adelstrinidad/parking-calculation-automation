@@ -8,11 +8,12 @@ public class CSVDataProvider {
 
     private static CsvReader reader = null;
     private static Object[][] data = null;
-    private static final String TARGET_PATH = "target/classes/";
+    private static final String TARGET_PATH = "src/main/resources/";
 
-
-
-
+    /**
+     *
+     * @param fileName the name of the csv file
+     */
     private static void getData(String fileName) {
         String path = getFilePath(fileName);
 
@@ -41,6 +42,11 @@ public class CSVDataProvider {
         }
     }
 
+    /**
+     *
+     * @param fileName the name of the csv file
+     * @return the absolute path of the csv file
+     */
     private static String getFilePath(String fileName) {
         File file = new File(TARGET_PATH);
         String absolutePath = file.getAbsolutePath();
@@ -48,6 +54,11 @@ public class CSVDataProvider {
         return absolutePath + "\\" +fileName;
     }
 
+    /**
+     *
+     * @param path absolute path for the csv file
+     * @return the number of row that the csv file contains
+     */
     private static int calculateRowsInCsvFile(String path) {
         int i = 0;
         try {
@@ -62,6 +73,11 @@ public class CSVDataProvider {
         return  i;
     }
 
+    /**
+     *
+     * @param path absolute path for the csv file
+     * @return the number of columns that the csv file contains
+     */
     private static int calculateColumnsInCsvFile(String path) {
         int numberColumns = 0;
         try {
@@ -76,6 +92,11 @@ public class CSVDataProvider {
         return numberColumns;
     }
 
+    /**
+     *
+     * @param fileName the csv file name
+     * @return An object with the data gotten from the csv file
+     */
     public  static Object[][] getCSVData(String fileName) {
         getData(fileName);
         return data;
