@@ -1,23 +1,63 @@
 package com.parkingcalculatortest;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+
+import static com.parkingcalculatortest.DriverFactory.getChromeDriver;
 
 /**
  *
  * @author Adelquis Trinidad
  */
 public class ParkingCalculatorPage {
-    WebDriver driver = DriverFactory.getChromeDriver();
+    WebDriver driver = getChromeDriver();
 
-    private ParkingCalculatorPage(){
-        //hide it
+    @FindBy(name="Lot")
+    WebElement lotDpd;
+
+    @FindBy(id="EntryTime")
+    WebElement entryTimeField;
+
+    @FindBy(id="ExitTime")
+    WebElement exitTimeField;
+
+    @FindBy(id="EntryDate")
+    WebElement entryDateField;
+
+    @FindBy(id="ExitDate")
+    WebElement exitDateField;
+
+    @FindBy(css="#EntryTime ~ input[value=AM]")
+    WebElement entryTimeAM;
+
+    @FindBy(css="#EntryTime ~ input[value=PM]")
+    WebElement entryTimePM;
+
+    @FindBy(css="#ExitTime ~ input[value=AM]")
+    WebElement exitTimeAM;
+
+    @FindBy(css="#ExitTime ~ input[value=PM]")
+    WebElement exitTimePM;
+
+    @FindBy(name="Submit")
+    WebElement submitButton;
+
+    @FindBy(css=".SubHead > font > b")
+    WebElement costLabel;
+
+    @FindBy(css=".BodyCopy > font > b")
+    WebElement timeConsumedLabel;
+
+    /**
+     *
+     */
+    public  ParkingCalculatorPage(){
+        PageFactory.initElements(driver,this);
     }
 
-    public static ParkingCalculatorPage getParkingCalculationPage() {
-        return new ParkingCalculatorPage();
-    }
 
     /**
      *
@@ -25,30 +65,49 @@ public class ParkingCalculatorPage {
      * @return ParkingCalculatorPage
      */
     public ParkingCalculatorPage chooseLot(String lot) {
-        driver.findElement(By.cssSelector("option[value="+ lot + "]")).click();
+        Select selectByValue = new Select(lotDpd);
+        selectByValue.selectByValue(lot);
         return  this;
     }
 
     /**
-     * @param timeFieldSelector specify if is the entry time or exit time
+     * @param timeSelector specify if is the entry time or exit time
      * @param time the hour specified as mm:ss
      * @return ParkingCalculatorPage
      */
-    public ParkingCalculatorPage chooseDateTime(String timeFieldSelector, String time){
-        WebElement entryDateTimeField = driver.findElement(By.id(timeFieldSelector));
-        entryDateTimeField.clear();
-        entryDateTimeField.sendKeys(time);
+    public ParkingCalculatorPage chooseDateTime(String timeSelector, String time){
+        if(timeSelector.equals("EntryTime")){
+            entryTimeField.clear();
+            entryTimeField.sendKeys(time);
+        }else{
+            exitTimeField.clear();
+            exitTimeField.sendKeys(time);
+        }
+
         return this;
     }
 
     /**
      *
-     * @param timeFieldSelector specify if is the entry time or exit time
+     * @param timeSelector specify if is the entry time or exit time
      * @param periodOfTime period of time AM or PM
      * @return ParkingCalculatorPage
      */
-    public ParkingCalculatorPage choosePeriodTimeRB(String timeFieldSelector, String periodOfTime) {
-        driver.findElement(By.cssSelector("#"+ timeFieldSelector + " ~ input[value="+ periodOfTime + "]")).click();
+    public ParkingCalculatorPage choosePeriodTimeRB(String timeSelector, String periodOfTime) {
+        if(timeSelector.equals("EntryTime")){
+            if(periodOfTime.equals("AM")) {
+                entryTimeAM.click();
+            }else{
+                entryTimePM.click();
+            }
+        }else{
+            if(periodOfTime.equals("AM")){
+                exitTimeAM.click();
+            }else {
+                exitTimePM.click();
+            }
+
+        }
         return this;
     }
 
@@ -56,7 +115,8 @@ public class ParkingCalculatorPage {
      *
      */
     public void submit() {
-        driver.findElement(By.name("Submit")).click();
+        submitButton.click();
+
     }
 
     /**
@@ -64,19 +124,28 @@ public class ParkingCalculatorPage {
      * @return Cost of parking
      */
     public String calculateCost() {
-        return driver.findElement(By.cssSelector(".SubHead > font > b")).getText();
+        return costLabel.getText();
     }
 
     /**
      *
-     * @param entryOrExitTime the type of time, entry or exit
-     * @param date date of entry or exit
+     * @param date date of entry
      * @return ParkingCalculatorPage
      */
-    public ParkingCalculatorPage setDate(String entryOrExitTime, String date) {
-        WebElement entryDateTimeField = driver.findElement(By.name(entryOrExitTime));
-        entryDateTimeField.clear();
-        entryDateTimeField.sendKeys(date);
+    public ParkingCalculatorPage setEntryDate(String date) {
+        entryDateField.clear();
+        entryDateField.sendKeys(date);
+        return this;
+    }
+
+    /**
+     *
+     * @param date date of exit
+     * @return ParkingCalculatorPage
+     */
+    public ParkingCalculatorPage setExitDate(String date) {
+        exitDateField.clear();
+        exitDateField.sendKeys(date);
         return this;
     }
 
@@ -85,7 +154,7 @@ public class ParkingCalculatorPage {
      * @return time consumed
      */
     public String obtainTimeConsumed() {
-        String[] output = driver.findElement(By.cssSelector(".BodyCopy > font > b")).getText().split("(?=\\()");
+        String[] output = timeConsumedLabel.getText().split("(?=\\()");
         return output[1];
     }
 }
