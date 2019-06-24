@@ -17,16 +17,16 @@ public class ParkingCalculatorPageTest extends BaseTestClass {
     ParkingCalculatorPage parkingCalculator;
 
     @Test(dataProvider = "getDataFromCSV", dataProviderClass = DataProviderClass.class)
-    public void calculateParkingTestCSV(String lot, String startTime, String periodOfTimeEntry, String startDate, String endTime, String periodOfTimeExit,String endDate,  String cost, String timeSpent ) throws InterruptedException {
+    public void calculateParkingTestCSV(String lot, String startTime, String periodOfTimeEntry, String startDate, String endTime, String periodOfTimeExit,String exitDate,  String cost, String timeSpent ) throws InterruptedException {
         parkingCalculator = new ParkingCalculatorPage();
 
         parkingCalculator.chooseLot(lot)
                 .chooseDateTime(ENTRY_TIME, startTime)
                 .choosePeriodTimeRB(ENTRY_TIME, periodOfTimeEntry)
-                .setEntryDate(startDate)
+                .setEntryDateCalendar(startDate)
                 .chooseDateTime(EXIT_TIME, endTime)
                 .choosePeriodTimeRB(EXIT_TIME, periodOfTimeExit)
-                .setExitDate(endDate)
+                .setExitDateCalendar(exitDate)
                 .submit();
 
 

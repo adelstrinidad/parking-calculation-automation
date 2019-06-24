@@ -51,6 +51,12 @@ public class ParkingCalculatorPage {
     @FindBy(css=".BodyCopy > font > b")
     WebElement timeConsumedLabel;
 
+    @FindBy(css="#EntryDate + a")
+    WebElement entryDateCalendar;
+
+    @FindBy(css="#ExitDate + a")
+    WebElement exitDateCalendar;
+
     /**
      *
      */
@@ -135,6 +141,34 @@ public class ParkingCalculatorPage {
     public ParkingCalculatorPage setEntryDate(String date) {
         entryDateField.clear();
         entryDateField.sendKeys(date);
+        return this;
+    }
+
+    /**
+     *
+     * @param entryDate entry date value
+     * @return ParkingCalculatorPage
+     */
+    public ParkingCalculatorPage setEntryDateCalendar(String entryDate) {
+        CalendarPage calendarPage = new CalendarPage();
+        entryDateCalendar.click();
+
+        calendarPage.setDate(entryDate);
+
+        return this;
+    }
+
+    /**
+     *
+     * @param exitDate exit date value
+     * @return ParkingCalculatorPage
+     */
+    public ParkingCalculatorPage setExitDateCalendar(String exitDate) {
+        CalendarPage calendarPage = new CalendarPage();
+        exitDateCalendar.click();
+
+        calendarPage.setDate(exitDate);
+
         return this;
     }
 
